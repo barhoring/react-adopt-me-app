@@ -6,24 +6,26 @@ const Pet = props => {
   ]);
 };
 
-const App = () => {
-  return React.createElement("div", {}, [
-    React.createElement("h1", {}, "Adopt Me now!"),
-    React.createElement(Pet, {
-      name: "Luna",
-      animal: "Dog",
-      breed: "Havanise"
-    }),
-    React.createElement(Pet, {
-      name: "Tuktuk",
-      animal: "Parrot",
-      breed: "Cacatoo"
-    }),
-    React.createElement(Pet, {
-      name: "Pegasus",
-      animal: "Hourse",
-      breed: "Arab"
-    })
-  ]);
-};
+class App extends React.Component {
+  render() {
+    return React.createElement("div", {}, [
+      React.createElement("h1", {}, "Adopt Me now!"),
+      React.createElement(Pet, {
+        name: "Luna",
+        animal: "Dog",
+        breed: "Havanise"
+      }),
+      React.createElement(Pet, {
+        name: "Tuktuk",
+        animal: "Parrot",
+        breed: "Cacatoo"
+      }),
+      React.createElement(Pet, {
+        name: "Pegasus",
+        animal: "Hourse",
+        breed: "Arab"
+      })
+    ]);
+  }
+}
 ReactDOM.render(React.createElement(App), document.getElementById("root"));
