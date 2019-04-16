@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/btholt/complete-intro-to-react-v4/issues"
   },
-  "homepage": "https://github.com/btholt/complete-intro-to-react-v4#readme"
+  "homepage": "https://github.com/btholt/complete-intro-to-react-v4#readme",
+  "devDependencies": {
+    "prettier": "^1.17.0"
+  }
 }
