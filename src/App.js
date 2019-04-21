@@ -28,12 +28,12 @@ class App extends React.Component {
       .then(data => {
         let pets;
 
-        if (data.petfinder.pets && data.petfinder.pets) {
-          if (Array.isArray(data.petfinder.pets)) {
-            pets = data.petfinder.pets;
+        if (data.petfinder.pets && data.petfinder.pets.pet) {
+          if (Array.isArray(data.petfinder.pets.pet)) {
+            pets = data.petfinder.pets.pet;
           } else {
             // if length == 1 then need to wrap it in a array
-            pets = [data.petfinder.pets];
+            pets = [data.petfinder.pets.pet];
           }
         } else {
           pets = [];
@@ -46,9 +46,19 @@ class App extends React.Component {
     return (
       <div>
         <h1>Adopt Me!</h1>
-        <pre>
-          <code>{JSON.stringify(this.state, null, 4)}</code>
-        </pre>
+        <div>
+          {this.state.pets.map(pet => {
+            let breed;
+
+            if (Array.isArray(pet.breeds.breed)) {
+              breed = pet.breeds.breed.join(", ");
+            } else {
+              breed = pet.breeds.breed;
+            }
+            return <Pet animal={pet.animal} name={pet.name} breed={breed} />;
+          })}
+          ;
+        </div>
       </div>
     );
   }

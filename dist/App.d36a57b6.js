@@ -46459,12 +46459,12 @@ function (_React$Component) {
       }).then(function (data) {
         var pets;
 
-        if (data.petfinder.pets && data.petfinder.pets) {
-          if (Array.isArray(data.petfinder.pets)) {
-            pets = data.petfinder.pets;
+        if (data.petfinder.pets && data.petfinder.pets.pet) {
+          if (Array.isArray(data.petfinder.pets.pet)) {
+            pets = data.petfinder.pets.pet;
           } else {
             // if length == 1 then need to wrap it in a array
-            pets = [data.petfinder.pets];
+            pets = [data.petfinder.pets.pet];
           }
         } else {
           pets = [];
@@ -46478,7 +46478,21 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me!"), _react.default.createElement("pre", null, _react.default.createElement("code", null, JSON.stringify(this.state, null, 4))));
+      return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me!"), _react.default.createElement("div", null, this.state.pets.map(function (pet) {
+        var breed;
+
+        if (Array.isArray(pet.breeds.breed)) {
+          breed = pet.breeds.breed.join(", ");
+        } else {
+          breed = pet.breeds.breed;
+        }
+
+        return _react.default.createElement(_Pet.default, {
+          animal: pet.animal,
+          name: pet.name,
+          breed: breed
+        });
+      }), ";"));
     }
   }]);
 
@@ -46514,7 +46528,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63517" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58089" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
