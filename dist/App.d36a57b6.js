@@ -46478,19 +46478,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me!"), _react.default.createElement(_Pet.default, {
-        name: "Luna",
-        animal: "Dog",
-        breed: "Havanese"
-      }), _react.default.createElement(_Pet.default, {
-        name: "Pepper",
-        animal: "Bird",
-        breed: "Cacatoo"
-      }), _react.default.createElement(_Pet.default, {
-        name: "Doink",
-        animal: "Cat",
-        breed: "Persian"
-      }));
+      return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me!"), _react.default.createElement("pre", null, _react.default.createElement("code", null, JSON.stringify(this.state, null, 4))));
     }
   }]);
 
@@ -46526,7 +46514,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62706" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63517" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
