@@ -13,8 +13,34 @@ const petfinder = pf({
 
 class App extends React.Component {
   // inside class, above render
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      pets: []
+    };
+  }
+
   componentDidMount() {
-    petfinder.breed.list({ animal: "bird" }).then(console.log, console.error);
+    // petfinder.breed.list({ animal: "bird" }).then(console.log, console.error);
+    petfinder.pet
+      .find({ output: "full", location: "Seattle, WA" })
+      .then(data => {
+        let pets;
+
+        if (data.petfinder.pets && data.petfinder.pets) {
+          if (Array.isArray(data.petfinder.pets)) {
+            pets = data.petfinder.pets;
+          } else {
+            // if length == 1 then need to wrap it in a array
+            pets = [data.petfinder.pets];
+          }
+        } else {
+          pets = [];
+        }
+
+        this.setState({ pets });
+      });
   }
   render() {
     return (

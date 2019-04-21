@@ -46425,8 +46425,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 // under imports
 // Note (April 2nd, 2019): You no longer need real API keys, Petfinder Client will still work
 var petfinder = (0, _petfinderClient.default)({
-  key: "<Your API key>",
-  secret: "<Your API secret>"
+  key: "1234",
+  secret: "1234"
 });
 
 var App =
@@ -46434,19 +46434,46 @@ var App =
 function (_React$Component) {
   _inherits(App, _React$Component);
 
-  function App() {
+  // inside class, above render
+  function App(props) {
+    var _this;
+
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(App).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
+    _this.state = {
+      pets: []
+    };
+    return _this;
   }
 
   _createClass(App, [{
     key: "componentDidMount",
-    // inside class, above render
     value: function componentDidMount() {
-      petfinder.breed.list({
-        animal: "bird"
-      }).then(console.log, console.error);
+      var _this2 = this;
+
+      // petfinder.breed.list({ animal: "bird" }).then(console.log, console.error);
+      petfinder.pet.find({
+        output: "full",
+        location: "Seattle, WA"
+      }).then(function (data) {
+        var pets;
+
+        if (data.petfinder.pets && data.petfinder.pets) {
+          if (Array.isArray(data.petfinder.pets)) {
+            pets = data.petfinder.pets;
+          } else {
+            // if length == 1 then need to wrap it in a array
+            pets = [data.petfinder.pets];
+          }
+        } else {
+          pets = [];
+        }
+
+        _this2.setState({
+          pets: pets
+        });
+      });
     }
   }, {
     key: "render",
@@ -46499,7 +46526,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55516" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62706" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
