@@ -46488,6 +46488,7 @@ function (_React$Component) {
         }
 
         return _react.default.createElement(_Pet.default, {
+          key: pet.id,
           animal: pet.animal,
           name: pet.name,
           breed: breed
