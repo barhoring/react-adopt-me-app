@@ -49196,154 +49196,7 @@ function (_React$Component) {
 
 var _default = Results;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Pet":"Pet.js","petfinder-client":"../node_modules/petfinder-client/index.js"}],"../node_modules/@reach/router/lib/history.js":[function(require,module,exports) {
-"use strict";
-
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var getLocation = function getLocation(source) {
-  return _extends({}, source.location, {
-    state: source.history.state,
-    key: source.history.state && source.history.state.key || "initial"
-  });
-};
-
-var createHistory = function createHistory(source, options) {
-  var listeners = [];
-  var location = getLocation(source);
-  var transitioning = false;
-  var resolveTransition = function resolveTransition() {};
-
-  return {
-    get location() {
-      return location;
-    },
-
-    get transitioning() {
-      return transitioning;
-    },
-
-    _onTransitionComplete: function _onTransitionComplete() {
-      transitioning = false;
-      resolveTransition();
-    },
-    listen: function listen(listener) {
-      listeners.push(listener);
-
-      var popstateListener = function popstateListener() {
-        location = getLocation(source);
-        listener({ location: location, action: "POP" });
-      };
-
-      source.addEventListener("popstate", popstateListener);
-
-      return function () {
-        source.removeEventListener("popstate", popstateListener);
-        listeners = listeners.filter(function (fn) {
-          return fn !== listener;
-        });
-      };
-    },
-    navigate: function navigate(to) {
-      var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-          state = _ref.state,
-          _ref$replace = _ref.replace,
-          replace = _ref$replace === undefined ? false : _ref$replace;
-
-      state = _extends({}, state, { key: Date.now() + "" });
-      // try...catch iOS Safari limits to 100 pushState calls
-      try {
-        if (transitioning || replace) {
-          source.history.replaceState(state, null, to);
-        } else {
-          source.history.pushState(state, null, to);
-        }
-      } catch (e) {
-        source.location[replace ? "replace" : "assign"](to);
-      }
-
-      location = getLocation(source);
-      transitioning = true;
-      var transition = new Promise(function (res) {
-        return resolveTransition = res;
-      });
-      listeners.forEach(function (listener) {
-        return listener({ location: location, action: "PUSH" });
-      });
-      return transition;
-    }
-  };
-};
-
-////////////////////////////////////////////////////////////////////////////////
-// Stores history entries in memory for testing or other platforms like Native
-var createMemorySource = function createMemorySource() {
-  var initialPathname = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "/";
-
-  var index = 0;
-  var stack = [{ pathname: initialPathname, search: "" }];
-  var states = [];
-
-  return {
-    get location() {
-      return stack[index];
-    },
-    addEventListener: function addEventListener(name, fn) {},
-    removeEventListener: function removeEventListener(name, fn) {},
-
-    history: {
-      get entries() {
-        return stack;
-      },
-      get index() {
-        return index;
-      },
-      get state() {
-        return states[index];
-      },
-      pushState: function pushState(state, _, uri) {
-        var _uri$split = uri.split("?"),
-            pathname = _uri$split[0],
-            _uri$split$ = _uri$split[1],
-            search = _uri$split$ === undefined ? "" : _uri$split$;
-
-        index++;
-        stack.push({ pathname: pathname, search: search });
-        states.push(state);
-      },
-      replaceState: function replaceState(state, _, uri) {
-        var _uri$split2 = uri.split("?"),
-            pathname = _uri$split2[0],
-            _uri$split2$ = _uri$split2[1],
-            search = _uri$split2$ === undefined ? "" : _uri$split2$;
-
-        stack[index] = { pathname: pathname, search: search };
-        states[index] = state;
-      }
-    }
-  };
-};
-
-////////////////////////////////////////////////////////////////////////////////
-// global history - uses window.history as the source if available, otherwise a
-// memory history
-var canUseDOM = !!(typeof window !== "undefined" && window.document && window.document.createElement);
-var getSource = function getSource() {
-  return canUseDOM ? window : createMemorySource();
-};
-
-var globalHistory = createHistory(getSource());
-var navigate = globalHistory.navigate;
-
-////////////////////////////////////////////////////////////////////////////////
-
-exports.globalHistory = globalHistory;
-exports.navigate = navigate;
-exports.createHistory = createHistory;
-exports.createMemorySource = createMemorySource;
-},{}],"Details.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Pet":"Pet.js","petfinder-client":"../node_modules/petfinder-client/index.js"}],"Carousel.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49352,10 +49205,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
-
-var _petfinderClient = _interopRequireDefault(require("petfinder-client"));
-
-var _history = require("@reach/router/lib/history");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49377,7 +49226,111 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-// ?
+var Carousel =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Carousel, _React$Component);
+
+  function Carousel() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    var _temp;
+
+    _classCallCheck(this, Carousel);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Carousel)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      photos: [],
+      active: 0
+    }, _temp));
+  }
+
+  _createClass(Carousel, [{
+    key: "render",
+    value: function render() {
+      var _this$state = this.state,
+          photos = _this$state.photos,
+          active = _this$state.active;
+      return _react.default.createElement("div", {
+        className: "carousel"
+      }, _react.default.createElement("img", {
+        src: photos[active].value,
+        alt: "primary animal"
+      }), _react.default.createElement("div", {
+        className: "carousel-smaller"
+      }, photos.map(function (photo, index) {
+        return _react.default.createElement("img", {
+          key: photo.value,
+          src: photo.value,
+          className: index === active ? "active" : "",
+          alt: "animal thumbnail"
+        });
+      })));
+    }
+  }], [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(_ref) {
+      var media = _ref.media;
+      var photos = [];
+
+      if (media && media.photos && media.photos.photo) {
+        photos = media.photos.photo.filter(function (photo) {
+          return photo["@size"] === "pn";
+        });
+      }
+
+      return {
+        photos: photos
+      };
+    }
+  }]);
+
+  return Carousel;
+}(_react.default.Component);
+
+var _default = Carousel;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"Details.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _petfinderClient = _interopRequireDefault(require("petfinder-client"));
+
+var _router = require("@reach/router");
+
+var _Carousel = _interopRequireDefault(require("./Carousel"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 var petfinder = (0, _petfinderClient.default)({
   key: "gaQMAD6CPctVvlJpQ4EWSPIEboThEEoXG5bDgl8wkLgNG2SnyA",
   secret: "yuklIH8k4N8vcdMWLQ0rs3QqDveeXDUeMnEZplYQ"
@@ -49435,7 +49388,7 @@ function (_React$Component) {
           loading: false
         });
       }).catch(function (err) {
-        return (0, _history.navigate)("/");
+        return (0, _router.navigate)("/");
       });
     }
   }, {
@@ -49450,10 +49403,13 @@ function (_React$Component) {
           animal = _this$state.animal,
           breed = _this$state.breed,
           location = _this$state.location,
-          description = _this$state.description;
+          description = _this$state.description,
+          media = _this$state.media;
       return _react.default.createElement("div", {
         className: "details"
-      }, _react.default.createElement("div", null, _react.default.createElement("h1", null, name), _react.default.createElement("h2", null, animal, " - ", breed, " - ", location), _react.default.createElement("p", null, description)));
+      }, _react.default.createElement(_Carousel.default, {
+        media: media
+      }), _react.default.createElement("div", null, _react.default.createElement("h1", null, name), _react.default.createElement("h2", null, animal, " - ", breed, " - ", location), _react.default.createElement("p", null, description)));
     }
   }]);
 
@@ -49462,7 +49418,7 @@ function (_React$Component) {
 
 var _default = Details;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","petfinder-client":"../node_modules/petfinder-client/index.js","@reach/router/lib/history":"../node_modules/@reach/router/lib/history.js"}],"App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","petfinder-client":"../node_modules/petfinder-client/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","./Carousel":"Carousel.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
