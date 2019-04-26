@@ -38,7 +38,7 @@ class Results extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="search">
         {this.state.pets.map(pet => {
           let breed;
 
@@ -58,7 +58,6 @@ class Results extends React.Component {
             />
           );
         })}
-        ;
       </div>
     );
   }
