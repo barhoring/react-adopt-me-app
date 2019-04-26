@@ -28387,6 +28387,8 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _router = require("@reach/router");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -28426,7 +28428,8 @@ function (_React$Component) {
           breed = _this$props.breed,
           animal = _this$props.animal,
           media = _this$props.media,
-          location = _this$props.location;
+          location = _this$props.location,
+          id = _this$props.id;
       var photos = [];
 
       if (media && media.photos && media.photos.photo) {
@@ -28435,7 +28438,8 @@ function (_React$Component) {
         });
       }
 
-      return _react.default.createElement("div", {
+      return _react.default.createElement(_router.Link, {
+        to: "details/".concat(id),
         className: "pet"
       }, _react.default.createElement("div", {
         className: "image-container"
@@ -28453,7 +28457,7 @@ function (_React$Component) {
 
 var _default = Pet;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"../node_modules/process/browser.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js"}],"../node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -49180,7 +49184,8 @@ function (_React$Component) {
           name: pet.name,
           breed: breed,
           media: pet.media,
-          location: "".concat(pet.contact.city, " - ").concat(pet.contact.state)
+          location: "".concat(pet.contact.city, " - ").concat(pet.contact.state),
+          id: pet.id
         });
       }));
     }
@@ -49297,7 +49302,9 @@ function (_React$Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Adopt Me!"), _react.default.createElement(_router.Router, null, _react.default.createElement(_Results.default, {
+      return _react.default.createElement("div", null, _react.default.createElement("header", null, _react.default.createElement(_router.Link, {
+        to: "/"
+      }, "Adopt Me!")), _react.default.createElement(_router.Router, null, _react.default.createElement(_Results.default, {
         path: "/"
       }), _react.default.createElement(_Details.default, {
         path: "/details/:id"
