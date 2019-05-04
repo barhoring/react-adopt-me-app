@@ -17,7 +17,6 @@ class Details extends React.Component {
     petfinder.pet
       .get({ output: "full", id: this.state.id })
       .then(data => {
-        debugger;
         const pet = data.petfinder.pet;
         let breed;
         if (Array.isArray(pet.breeds.breed)) {
