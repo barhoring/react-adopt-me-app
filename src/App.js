@@ -69,7 +69,7 @@ class App extends React.Component {
         <header>
           <Link to="/">Adopt Me!</Link>
         </header>
-        <Provider>
+        <Provider value={this.state}>
           <Router>
             <Results path="/" />
             <Details path="/details/:id" />
